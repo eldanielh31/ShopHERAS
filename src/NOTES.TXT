@@ -1,3 +1,0 @@
-colores siempre con primera mayus
-tamanno en mayus
-categorias = T-SHIRT STEP1, "SWEATER HERAS", "T-SHIRT HERAS"
