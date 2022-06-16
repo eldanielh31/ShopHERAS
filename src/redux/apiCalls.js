@@ -1,6 +1,7 @@
 import { publicRequest, userRequest } from "../requestMethods";
 import { addProductFailure, addProductStart, addProductSuccess, deleteProductFailure, deleteProductStart, deleteProductSuccess, getProductFailure, getProductStart, getProductSuccess, updateProductFailure, updateProductStart, updateProductSuccess } from "./productRedux";
 import {deleteUserFailure, deleteUserStart, deleteUserSuccess, getUserFailure, getUserStart, getUserSuccess, loginFailure, loginStart, loginSuccess, setError} from "./userRedux";
+import {getOrderFailure, getOrderStart, getOrderSuccess} from "./orderRedux"
 
 export const login = async(dispatch, user)=>{
     dispatch(loginStart());
@@ -82,3 +83,15 @@ export const addProduct = async(product, dispatch)=>{
         dispatch(addProductFailure());
     }
 }
+
+//Ordenes
+
+export const getOrders = async(dispatch)=>{
+    dispatch(getOrderStart());
+    try{
+        const res = await userRequest.get("/order");
+        dispatch(getOrderSuccess(res.data));
+    }catch(err){
+        dispatch(getOrderFailure());
+    }
+};

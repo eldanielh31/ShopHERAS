@@ -4,7 +4,6 @@ import {
   TrendingUp,
   PermIdentity,
   Storefront,
-  AttachMoney,
   BarChart,
   MailOutline,
 } from "@material-ui/icons";

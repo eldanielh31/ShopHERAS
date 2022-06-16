@@ -21,7 +21,7 @@ export default function Topbar() {
     <div className="topbar">
       <div className="topbarWrapper">
         <div className="topLeft">
-          <span className="logo">Administrados HERAS</span>
+          <span className="logo">Administrador HERAS</span>
         </div>
         <div className="topRight">
           {/* <div className="topbarIconContainer">
