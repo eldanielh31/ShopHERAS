@@ -8,7 +8,7 @@ const Container = styled.div`
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
-    url("https://i.ibb.co/PmJNhy7/Register2.png")
+    url("https://i.ibb.co/Wt7GngT/Register2.png")
       right;
   background-repeat: no-repeat;
   display: flex;

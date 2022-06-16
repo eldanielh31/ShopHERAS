@@ -26,16 +26,11 @@ const Left = styled.div`
   display: flex;
   align-items: center;
 `
-const Language = styled.span`
-  font-size: 14px;
-  cursor: pointer;
-  ${mobile({ display: "none" })}
-`
+
 const SearchContainer = styled.div`
   border: 0.5px solid lightgray;
   display: flex;
   align-items: center;
-  margin-left: 25px;
   padding: 5px;
 `
 const Input = styled.input`
@@ -51,6 +46,7 @@ const Center = styled.div`
 `
 const Logo = styled.h1`
   font-weight: bold;
+  cursor: pointer;
   ${mobile({ fontSize: "24px" })}
 `
 
@@ -77,20 +73,21 @@ const Navbar = () => {
     <Container>
       <Wrapper>
         <Left>
-          <Language>
-            ES
-          </Language>
           <SearchContainer>
             <Input></Input>
             <Search style={{color:"gray", frontSize: 16}}/>
           </SearchContainer>
         </Left>
+        
         <Center>
-          <Logo>HERAS.</Logo>
+          <Link to="/">
+            <Logo>HERAS.</Logo>
+          </Link>
         </Center>
+
         <Rigth>
-          <MenuItem href= "./pages/Register">REGISTER</MenuItem>
-          <MenuItem>SING IN</MenuItem>
+          <MenuItem href= "./pages/Register">Registrar</MenuItem>
+          <MenuItem>Iniciar Sesión</MenuItem>
           <Link to = "/cart">
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">

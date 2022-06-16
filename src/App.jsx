@@ -33,11 +33,10 @@ const App = () => {
         </Route>
         <Route exact path="/login">
           {user? <Redirect to="/"/> : <Login/>}
-          <Login/>
         </Route>
         <Route exact path="/register">
-          {user? <Redirect to="/"/> : <Login/>}
-          <Register/>
+          {user? <Redirect to="/"/> : <Register/>}
+          
         </Route>
       </Switch>
     </Router>

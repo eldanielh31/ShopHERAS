@@ -11,7 +11,7 @@ const Container = styled.div`
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
-    url("https://i.ibb.co/BcDRGpz/login2.png")
+    url("https://i.ibb.co/mhtCJFS/login2.png")
       center;
   background-repeat: no-repeat;
   display: flex;
