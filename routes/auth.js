@@ -9,7 +9,7 @@ router.use(async function(req, res, next) {
     next();
   });
 
-//Register
+//Registerasda
 router.post("/register", async (req, res) =>{
     const newUser = new User({
         username: req.body.username,
