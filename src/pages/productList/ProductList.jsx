@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import Navbar from "../components/navbar/Navbar";
-import Announcement from "../components/announcement/Announcement";
-import Products from "../components/products/Products";
-import Newsletter from "../components/newsletter/Newsletter";
-import Footer from "../components/footer/Footer";
-import { mobile } from "../responsive";
+import Navbar from "../../components/navbar/Navbar";
+import Announcement from "../../components/announcement/Announcement";
+import Products from "../../components/products/Products";
+import Newsletter from "../../components/newsletter/Newsletter";
+import Footer from "../../components/footer/Footer";
+import { mobile } from "../../responsive";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 

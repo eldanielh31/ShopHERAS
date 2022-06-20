@@ -1,8 +1,8 @@
-import Home from "./pages/Home";
-import ProductList from "./pages/ProductList";
-import Cart from "./pages/Cart"
-import Login from "./pages/Login"
-import Register from "./pages/Register"
+import Home from "./pages/home/Home";
+import ProductList from "./pages/productList/ProductList";
+import Cart from "./pages/cart/Cart"
+import Login from "./pages/login/Login"
+import Register from "./pages/register/Register"
 
 import {
   BrowserRouter as Router,
@@ -11,7 +11,7 @@ import {
 } from "react-router-dom";
 
 import { Switch } from "react-router-dom";
-import Product from "./pages/Product";
+import Product from "./pages/product/Product";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
