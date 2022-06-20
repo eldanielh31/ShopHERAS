@@ -2,68 +2,39 @@ import React from 'react'
 import styled from 'styled-components'
 import { Search, ShoppingCartOutlined } from "@material-ui/icons"
 import { Badge } from '@material-ui/core'
-import { mobile } from '../responsive'
+import { mobile } from '../../responsive'
 import {useDispatch, useSelector} from "react-redux"
 import { Link } from 'react-router-dom'
-import { deleteCurrentUserSuccess, deleteUserFailure, deleteUserStart } from '../redux/userRedux'
+import { deleteCurrentUserSuccess, deleteUserFailure, deleteUserStart } from '../../redux/userRedux'
+import "./navbar.css"
 
 //NAVBAR
 const Container = styled.div`
-  height: 60px;
   ${mobile({ height: "50px" })}
 `
 const Wrapper = styled.div`
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   ${mobile({ padding: "10px 0px" })}
 `
 
-//NAVBAR IZQUIERDA
-
-const Left = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
-`
-
-const SearchContainer = styled.div`
-  border: 0.5px solid lightgray;
-  display: flex;
-  align-items: center;
-  padding: 5px;
-`
 const Input = styled.input`
-  border: none;
   ${mobile({ width: "50px" })}
 `
 
 //NAVBAR CENTRO
 
-const Center = styled.div`
-  flex: 1;
-  text-align: center;
-`
 const Logo = styled.h1`
-  font-weight: bold;
-  cursor: pointer;
+
   ${mobile({ fontSize: "24px" })}
 `
 
 //NAVBAR DERECHA
 
 const Rigth = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;   
+
   ${mobile({ flex: 2, justifyContent: "center" })}
 `
 const MenuItem = styled.div`
-  font-size: 14px;
-  cursor: pointer;
-  margin-left: 25px; 
+
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `
 
@@ -83,33 +54,31 @@ const Navbar = () => {
 
 
   return (
-    <Container>
-      <Wrapper>
-        <Left>
-          <SearchContainer>
-            <Input></Input>
+    <Container className='navbar'>
+      <Wrapper className='wrapper'>
+        <div className='left'>
+          <div className='searchContainer'>
+            <Input className='input'/>
             <Search style={{color:"gray", frontSize: 16}}/>
-          </SearchContainer>
-        </Left>
+          </div>
+        </div>
         
-        <Center>
+        <div className='center'>
           <Link to="/">
-            <Logo>HERAS.</Logo>
+            <Logo className='logo'>HERAS.</Logo>
           </Link>
-        </Center>
+        </div>
 
-        <Rigth>
-          {((user !== null)) ? <MenuItem onClick={handleLogout}>Cerrar Sesion</MenuItem> : <Link to="/login"><MenuItem>Iniciar sesión</MenuItem></Link>}
+        <Rigth className='rigth'>
+          {((user !== null)) ? <MenuItem className='menuItem' onClick={handleLogout}>Cerrar Sesion</MenuItem> : <Link to="/login"><MenuItem>Iniciar sesión</MenuItem></Link>}
           <Link to = "/cart">
-            <MenuItem>
+            <MenuItem className='menuItem'>
               <Badge badgeContent={quantity} color="primary">
                 <ShoppingCartOutlined/>
               </Badge>
             </MenuItem>
           </Link>
         </Rigth>
-
-      
       </Wrapper>
     </Container>
   )

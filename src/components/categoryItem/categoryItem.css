@@ -5,13 +5,13 @@
     position: relative;
 }
 
-.img{
+.imgCategoryItem{
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.info{
+.infoCategoryItem{
     position: absolute;
     top: 0;
     left: 0;
@@ -23,12 +23,12 @@
     justify-content: center;
 }
 
-.title{
+.titleCategoryItem{
     color: white;
     margin-bottom: 20px;
 }
 
-.button{
+.buttonCategoryItem{
     border: none;
     padding: 10px;
     background-color: white;
