@@ -6,16 +6,18 @@ import Register from "./pages/Register"
 
 import {
   BrowserRouter as Router,
-  Redirect,
+  //Redirect,
   Route,
 } from "react-router-dom";
 
 import { Switch } from "react-router-dom";
 import Product from "./pages/Product";
 import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 const App = () => {
   const user = useSelector(state=> state.user.currentUser);
+
   return (
     <Router>
       <Switch>
@@ -32,11 +34,11 @@ const App = () => {
           <Cart/>
         </Route>
         <Route exact path="/login">
-          {user? <Redirect to="/"/> : <Login/>}
+          {(user !== null) ? <Redirect to="/" /> : <Login />}
+          {/* <Login/> */}
         </Route>
         <Route exact path="/register">
-          {user? <Redirect to="/"/> : <Register/>}
-          
+          <Register/> 
         </Route>
       </Switch>
     </Router>

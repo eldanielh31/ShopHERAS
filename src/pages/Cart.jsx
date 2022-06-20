@@ -1,10 +1,12 @@
-import { Add, Remove } from "@material-ui/icons";
+import { Add, DeleteOutlineOutlined, Remove } from "@material-ui/icons";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import {useSelector} from "react-redux";
+import { useDispatch } from "react-redux";
+import { deleteProduct } from "../redux/cartRedux";
 
 const Container = styled.div``;
 
@@ -16,33 +18,6 @@ const Wrapper = styled.div`
 const Title = styled.h1`
   font-weight: 300;
   text-align: center;
-`;
-
-const Top = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px;
-`;
-
-const TopButton = styled.button`
-  padding: 10px;
-  font-weight: 600;
-  cursor: pointer;
-  border: ${(props) => props.type === "filled" && "none"};
-  background-color: ${(props) =>
-    props.type === "filled" ? "black" : "transparent"};
-  color: ${(props) => props.type === "filled" && "white"};
-`;
-
-const TopTexts = styled.div`
-  ${mobile({ display: "none" })}
-`;
-
-const TopText = styled.span`
-  text-decoration: underline;
-  cursor: pointer;
-  margin: 0px 10px;
 `;
 
 const Bottom = styled.div`
@@ -67,6 +42,28 @@ const ProductDetail = styled.div`
   display: flex;
 `;
 
+const Delete = styled.div`
+  flex: 0.3;
+  display: flex;
+  align-items: center;
+`
+
+const Icon = styled.div`
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s ease; 
+    &:hover{
+        background-color: #fc6d49;
+        transform: scale(1.1);
+        }
+`;
+
+
 const Image = styled.img`
   width: 200px;
 `;
@@ -81,13 +78,6 @@ const Details = styled.div`
 const ProductName = styled.span``;
 
 const ProductId = styled.span``;
-
-const ProductColor = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: ${(props) => props.color};
-`;
 
 const ProductSize = styled.span``;
 
@@ -156,25 +146,26 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
-  const cart = useSelector(state=>state.cart)
-  console.log(cart.products[0])
+  const cart = useSelector(state=>state.cart);
+  const products = useSelector(state=>state.cart.products);
+  const dispatch = useDispatch();
+
+  const handleDelete=(index)=>{
+    dispatch(
+      deleteProduct(index)
+    )
+  }
+
   return (
     <Container>
-      <Navbar />
       <Announcement />
+      <Navbar />
       <Wrapper>
-        <Title>TU CARRITO.</Title>
-        <Top>
-          <TopButton>SEGUIR COMPRANDO</TopButton>
-          <TopTexts>
-            <TopText>CARRITO COMPRA(2)</TopText>
-            <TopText>LISTA DESEOS (0)</TopText>
-          </TopTexts>
-          <TopButton type="filled">TERMINAR COMPRA</TopButton>
-        </Top>
+        <Title>CARRITO.</Title>
         <Bottom>
           <Info>
-            {cart.products.map(product=>(
+            {
+            products.map((product, index)=>(
               <Product>
               <ProductDetail>
                 <Image src={product.img}/>
@@ -183,9 +174,8 @@ const Cart = () => {
                     <b>Product:</b> {product.title}
                   </ProductName>
                   <ProductId>
-                    <b>ID:</b> {product.id}
+                    <b>ID:</b> {product._id}
                   </ProductId>
-                  <ProductColor color={product.color} />
                   <ProductSize>
                     <b>Size:</b> {product.size}
                   </ProductSize>
@@ -193,14 +183,23 @@ const Cart = () => {
               </ProductDetail>
               <PriceDetail>
                 <ProductAmountContainer>
-                  <Add />
+                  <Add onClick = {()=>{}} />
+
                   <ProductAmount>{product.quantity}</ProductAmount>
-                  <Remove />
+
+                  <Remove onClick={() => {}} />
+
                 </ProductAmountContainer>
                 <ProductPrice>₡ {product.price * product.quantity}</ProductPrice>
               </PriceDetail>
+              <Delete>
+                <Icon>
+                   <DeleteOutlineOutlined onClick={()=>handleDelete(index)} />
+                </Icon>
+              </Delete>
               </Product>
-            ))}
+            ))
+            }
             <Hr />
           </Info>
           <Summary>

@@ -3,8 +3,9 @@ import styled from 'styled-components'
 import { Search, ShoppingCartOutlined } from "@material-ui/icons"
 import { Badge } from '@material-ui/core'
 import { mobile } from '../responsive'
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import { Link } from 'react-router-dom'
+import { deleteCurrentUserSuccess, deleteUserFailure, deleteUserStart } from '../redux/userRedux'
 
 //NAVBAR
 const Container = styled.div`
@@ -68,6 +69,18 @@ const MenuItem = styled.div`
 
 const Navbar = () => {
   const quantity = useSelector(state=>state.cart.quantity);
+  const user = useSelector(state => state.user.currentUser);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(deleteUserStart());
+    try {
+      dispatch(deleteCurrentUserSuccess());
+    } catch (error) {
+      dispatch(deleteUserFailure());
+    }
+  }
+
 
   return (
     <Container>
@@ -86,8 +99,7 @@ const Navbar = () => {
         </Center>
 
         <Rigth>
-          <MenuItem href= "./pages/Register">Registrar</MenuItem>
-          <MenuItem>Iniciar Sesión</MenuItem>
+          {((user !== null)) ? <MenuItem onClick={handleLogout}>Cerrar Sesion</MenuItem> : <Link to="/login"><MenuItem>Iniciar sesión</MenuItem></Link>}
           <Link to = "/cart">
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">
@@ -95,8 +107,9 @@ const Navbar = () => {
               </Badge>
             </MenuItem>
           </Link>
-          
         </Rigth>
+
+      
       </Wrapper>
     </Container>
   )

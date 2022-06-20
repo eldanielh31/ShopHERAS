@@ -1,4 +1,4 @@
-import { Facebook, Instagram, MailOutline, Phone, Room, Twitter } from "@material-ui/icons"
+import { Instagram, MailOutline, Phone, Room } from "@material-ui/icons"
 import styled from "styled-components"
 import { mobile } from "../responsive"
 
@@ -84,15 +84,15 @@ const Footer = () => {
                 mollitia quas iure, corporis tempore!
             </Desc>
             <SocialContainer>
-                <SocialIcon color = "3B5999">
+                {/* <SocialIcon color = "3B5999">
                     <Facebook/>
-                </SocialIcon>
+                </SocialIcon> */}
                 <SocialIcon color = "E4405F">
-                    <Instagram/>
+                    <Instagram />
                 </SocialIcon>
-                <SocialIcon color = "55ACEE">
+                {/* <SocialIcon color = "55ACEE">
                     <Twitter/>
-                </SocialIcon>
+                </SocialIcon> */}
             </SocialContainer>
         </Left>
         <Center>
@@ -119,7 +119,7 @@ const Footer = () => {
             <ContactItem>
                 <MailOutline style={{marginRight:"10px"}} /> luiskbrenes@gmail.com
             </ContactItem>
-            <Payment src="https://i.ibb.co/3T1JCgm/payment.png"/>
+              <Payment src="https://i.ibb.co/ZSNDXvQ/payment.png"/>
         </Rigth>
     </Container>
   )

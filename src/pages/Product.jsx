@@ -67,15 +67,6 @@ const FilterTitle = styled.span`
   font-weight: 200;
 `;
 
-const FilterColor = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: ${(props) => props.color};
-  margin: 0px 5px;
-  cursor: pointer;
-`;
-
 const FilterSize = styled.select`
   margin-left: 10px;
   padding: 5px;
@@ -126,8 +117,7 @@ const Product = () => {
 
   const[product, setProduct] = useState({});
   const[quantity, setQuantity] = useState(1);
-  const [color, setColor] = useState("");
-  const [size, setSize] = useState("");
+  const [size, setSize] = useState("XS");
   const dispatch = useDispatch();
 
   useEffect(()=>{
@@ -152,7 +142,7 @@ const Product = () => {
 
   const handleClick = ()=>{
     dispatch(
-      addProduct({...product, quantity, color, size})
+      addProduct({...product, quantity, size})
     );
   };
 
@@ -172,12 +162,6 @@ const Product = () => {
           <Price>₡{product.price}</Price>
           <FilterContainer>
             <Filter>
-              <FilterTitle>Color</FilterTitle>
-              {product.color?.map((c) => (
-                <FilterColor color={c} key={c} onClick={() => setColor(c)}/>
-              ))}
-            </Filter>
-            <Filter>
               <FilterTitle>Size</FilterTitle>
               <FilterSize onChange={(e) => setSize(e.target.value)}>
                 {product.size?.map((s) => (
@@ -196,8 +180,8 @@ const Product = () => {
           </AddContainer>
         </InfoContainer>
       </Wrapper>
-      <Newsletter />
-      <Footer />
+      <Newsletter/>
+      <Footer/>
     </Container>
   );
 };
