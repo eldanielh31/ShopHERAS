@@ -2,7 +2,7 @@ import { FavoriteBorderOutlined, SearchOutlined, ShoppingCartOutlined } from "@m
 import { Link } from "react-router-dom";
 import styled from "styled-components"
 
-const Info= styled.div`
+const Info = styled.div`
     opacity: 0;
     width: 100%;
     height: 100%;
@@ -33,19 +33,19 @@ const Container = styled.div`
         opacity: 1;
     }
 `;
-const Circle= styled.div`
+const Circle = styled.div`
     width: 200px;
     height: 200px;
     border-radius: 50%;
     background-color: white;
     position: absolute;
 `;
-const Image= styled.img`
+const Image = styled.img`
     height: 75%;
     z-index: 2;
 `;
 
-const Icon= styled.div`
+const Icon = styled.div`
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -61,26 +61,26 @@ const Icon= styled.div`
         }
 `;
 
-const Product = ({key, item}) => {
-  return (
-    <Container>
-        <Circle/>
-        <Image src = {item.img}/>
-        <Info>
-            <Icon>
-                <ShoppingCartOutlined/>
-            </Icon>
-            <Icon>
-                <Link to={`/product/${item._id}`}>
-                    <SearchOutlined/>
-                </Link>   
-            </Icon>
-            <Icon>
-                <FavoriteBorderOutlined/>
-            </Icon>
-        </Info>
-    </Container>
-  )
+const Product = ({ key, item }) => {
+    return (
+        <Container>
+            <Circle />
+            <Image src={item.img} />
+            <Info>
+                <Icon>
+                    <ShoppingCartOutlined />
+                </Icon>
+                <Icon>
+                    <Link to={`/product/${item._id}`}>
+                        <SearchOutlined />
+                    </Link>
+                </Icon>
+                <Icon>
+                    <FavoriteBorderOutlined />
+                </Icon>
+            </Info>
+        </Container>
+    )
 }
 
 export default Product

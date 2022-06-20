@@ -12,11 +12,11 @@ const Container = styled.div`
 `
 
 const Announcement = () => {
-  return (
-    <Container>
-        Colaborando con STEP1
-    </Container>
-  )
+    return (
+        <Container>
+            Colaborando con STEP1
+        </Container>
+    )
 }
 
 export default Announcement

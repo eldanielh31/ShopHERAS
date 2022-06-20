@@ -55,26 +55,26 @@ const Button = styled.button`
 `;
 
 const Register = () => {
-  return (
-    <Container>
-      <Wrapper>
-        <Title>CREAR UNA CUENTA.</Title>
-        <Form>
-          <Input placeholder="Nombre" />
-          <Input placeholder="Apellidos" />
-          <Input placeholder="Usuario" />
-          <Input placeholder="Correo Electronico" />
-          <Input placeholder="Contraseña" />
-          <Input placeholder="Confirmar contraseña" />
-          <Agreement>
-            Al crear una cuenta, doy mi consentimiento para el procesamiento de mis datos personales.
-            datos de acuerdo con el  <b>PRIVACY POLICY</b>
-          </Agreement>
-          <Button>CREAR</Button>
-        </Form>
-      </Wrapper>
-    </Container>
-  );
+    return (
+        <Container>
+            <Wrapper>
+                <Title>CREAR UNA CUENTA.</Title>
+                <Form>
+                    <Input placeholder="Nombre" />
+                    <Input placeholder="Apellidos" />
+                    <Input placeholder="Usuario" />
+                    <Input placeholder="Correo Electronico" />
+                    <Input placeholder="Contraseña" />
+                    <Input placeholder="Confirmar contraseña" />
+                    <Agreement>
+                        Al crear una cuenta, doy mi consentimiento para el procesamiento de mis datos personales.
+                        datos de acuerdo con el  <b>PRIVACY POLICY</b>
+                    </Agreement>
+                    <Button>CREAR</Button>
+                </Form>
+            </Wrapper>
+        </Container>
+    );
 };
 
 export default Register;

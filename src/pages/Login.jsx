@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import {mobile} from "../responsive";
-import {useState} from "react"
-import {login} from "../redux/apiCalls"
+import { mobile } from "../responsive";
+import { useState } from "react"
+import { login } from "../redux/apiCalls"
 import { useDispatch, useSelector } from "react-redux";
 
 const Container = styled.div`
@@ -69,30 +69,30 @@ const Error = styled.span`
 `
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
-  const {isFetching, error} = useSelector((state)=>state.user);
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const dispatch = useDispatch();
+    const { isFetching, error } = useSelector((state) => state.user);
 
-  const handleClick = (e)=>{
-    e.preventDefault()
-    login(dispatch, {username, password});
-  }; 
-  return ( 
-    <Container>
-      <Wrapper>
-        <Title>INICIAR SESIÓN</Title>
-        <Form>
-          <Input placeholder="Usuario" onChange={(e)=>setUsername(e.target.value)}/>
-          <Input type="password"  placeholder="Contraseña" onChange={(e)=>setPassword(e.target.value)}/>
-          <Button onClick={handleClick} disabled ={isFetching}>INICIAR SESIÓN</Button>
-          {error && <Error>Algo salió mal</Error>}
-          <Link>OLVIDÓ LA CONTRASEÑA?</Link>
-          <Link>CREAR CUENTA</Link>
-        </Form>
-      </Wrapper>
-    </Container>
-  );
+    const handleClick = (e) => {
+        e.preventDefault()
+        login(dispatch, { username, password });
+    };
+    return (
+        <Container>
+            <Wrapper>
+                <Title>INICIAR SESIÓN</Title>
+                <Form>
+                    <Input placeholder="Usuario" onChange={(e) => setUsername(e.target.value)} />
+                    <Input type="password" placeholder="Contraseña" onChange={(e) => setPassword(e.target.value)} />
+                    <Button onClick={handleClick} disabled={isFetching}>INICIAR SESIÓN</Button>
+                    {error && <Error>Algo salió mal</Error>}
+                    <Link>OLVIDÓ LA CONTRASEÑA?</Link>
+                    <Link>CREAR CUENTA</Link>
+                </Form>
+            </Wrapper>
+        </Container>
+    );
 };
 
 export default Login;

@@ -39,18 +39,18 @@ const Button = styled.button`
     font-weight: 600;
 `
 
-const CategoryItem = ({item}) => {
-  return (
-    <Container>
-        <Link to={`/products/${item.cat}`}>
-            <Imag src={item.img}/>
-            <Info>
-                <Title>{item.title}</Title>
-                <Button>Comprar</Button>
-            </Info>
-        </Link>
-    </Container>
-  )
+const CategoryItem = ({ item }) => {
+    return (
+        <Container>
+            <Link to={`/products/${item.cat}`}>
+                <Imag src={item.img} />
+                <Info>
+                    <Title>{item.title}</Title>
+                    <Button>Comprar</Button>
+                </Info>
+            </Link>
+        </Container>
+    )
 }
 
 export default CategoryItem
