@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
 //DELETE
 router.delete("/:mail", verifyTokenAndAdmi, async (req, res) => {
     try {
-        await Suscription.findOneAndDelete(req.params.mail);
+        await Suscription.findOneAndDelete({ mail : req.params.mail });
         res.status(200).json("Suscripcion eliminada.")
     } catch (err) {
         res.status(500).json(err);
@@ -34,9 +34,9 @@ router.delete("/:mail", verifyTokenAndAdmi, async (req, res) => {
 });
 
 //GET PRODUCT
-router.get("/:mail", verifyTokenAndAdmi, async (req, res) => {
+router.get("/:mail", async (req, res) => {
     try {
-        const findedSuscription = await Suscription.findOne(req.params.mail);
+        const findedSuscription = await Suscription.findOne({ mail: req.params.mail });
         res.status(200).json(findedSuscription);
     } catch (err) {
         res.status(500).json(err);
@@ -45,7 +45,7 @@ router.get("/:mail", verifyTokenAndAdmi, async (req, res) => {
 });
 
 //GET ALL
-router.get("/", verifyTokenAndAdmi, async (req, res) => {
+router.get("/", async (req, res) => {
     try {
         const Suscriptions = await Suscription.find();
         res.status(200).json(Suscriptions);
