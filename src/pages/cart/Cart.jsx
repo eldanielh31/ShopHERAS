@@ -6,8 +6,10 @@ import Navbar from "../../components/navbar/Navbar";
 import { mobile } from "../../responsive";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { clearCart, deleteProduct } from "../../redux/cartRedux";
+import { addQuantityProduct, clearCart, deleteProduct, deleteQuantityProduct } from "../../redux/cartRedux";
 import "./cart.css"
+import { useEffect, useState } from "react";
+import { publicRequest } from "../../requestMethods";
 
 const Wrapper = styled.div`
   ${mobile({ padding: "10px" })}
@@ -38,6 +40,21 @@ const Cart = () => {
   const cart = useSelector(state => state.cart);
   const products = useSelector(state => state.cart.products);
   const dispatch = useDispatch();
+  const [coupon, setCoupon] = useState("");
+  const [coupons, setCoupons] = useState([]);
+  const [discount, setDiscount] = useState(0);
+
+  useEffect(() => {
+    const getCoupons = async () => {
+      try {
+        const res = await publicRequest.get("/coupon");
+        setCoupons(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getCoupons();
+  }, []);
 
   const handleDelete = (index) => {
     dispatch(
@@ -50,6 +67,22 @@ const Cart = () => {
       dispatch(clearCart());
     }
   };
+
+  const handleAdd = (index) => {
+    dispatch(addQuantityProduct(index))
+  };
+
+  const handleRemove = (index) => {
+    dispatch(deleteQuantityProduct(index))
+  };
+
+  const handleCoupon = () => {
+    coupons.forEach((item)=>{
+      if (item.codename === coupon) {
+        setDiscount(item.discount);
+      }
+    });
+  }
 
   return (
     <div>
@@ -79,11 +112,12 @@ const Cart = () => {
                     </div>
                     <div className="priceDetailCart">
                       <div className="productAmountContainer">
-                        <Add onClick={() => { }} />
+
+                        <Add onClick={() => { handleAdd(index) }} />
 
                         <ProductAmount className="productAmount">{product.quantity}</ProductAmount>
 
-                        <Remove onClick={() => { }} />
+                        <Remove onClick={() => { handleRemove(index) }} />
 
                       </div>
                       <ProductPrice className="productPrice">₡ {product.price * product.quantity}</ProductPrice>
@@ -101,23 +135,31 @@ const Cart = () => {
             <div className="summaryCart">
               <h1 className="summaryTitleCart">DETALLE DE ORDEN</h1>
               <SummaryItem className="summaryItemCart">
-                <span>Subtotal</span>
+                <span>SUBTOTAL</span>
                 <span>₡ {cart.total}</span>
               </SummaryItem>
               <SummaryItem className="summaryItemCart">
                 <span>ENVIO ESTIMADO</span>
-                <span>₡ Por Definir</span>
+                <span>₡Por determinar</span>
               </SummaryItem>
               <SummaryItem className="summaryItemCart">
                 <span>DESCUENTO</span>
-                <span>₡ -5.90</span>
+                <span>₡ {discount}</span>
+              </SummaryItem>
+
+              <SummaryItem className="summaryItemCart">
+                <div className="groupCart">
+                  <input placeholder="CUPÓN" type="text"
+                    className="inputCart" onChange={(e) => { setCoupon(e.target.value) }} />
+                  <span className="barCart" />
+                </div>
+                <button className="button-55" onClick={handleCoupon}>VERIFICAR</button>
               </SummaryItem>
               <SummaryItem className="summaryItemCart" type="total">
                 <span>Total</span>
-                <span>₡ {cart.total}</span>
+                <span>₡ {(cart.total - discount > 0) ? cart.total - discount : cart.total}</span>
               </SummaryItem>
               <button className="button-28" onClick={handleBuy}>COMPRAR</button>
-              {/* <button className="buttonCart">TERMINAR COMPRA</button> */}
             </div>
           </Bottom>
         </Wrapper>

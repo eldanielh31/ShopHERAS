@@ -127,49 +127,6 @@ input:focus~.bar:after {
     opacity: 0.5;
 }
 
-/* active state */
-/* input:focus~.highlight {
-    -webkit-animation: inputHighlighter 0.3s ease;
-    -moz-animation: inputHighlighter 0.3s ease;
-    animation: inputHighlighter 0.3s ease;
-}
-
-@-webkit-keyframes inputHighlighter {
-    from {
-        background: black;
-    }
-
-    to {
-        width: 0;
-        background: transparent;
-    }
-}
-
-@-moz-keyframes inputHighlighter {
-    from {
-        background: black;
-    }
-
-    to {
-        width: 0;
-        background: transparent;
-    }
-}
-
-@keyframes inputHighlighter {
-    from {
-        background: black;
-    }
-
-    to {
-        width: 0;
-        background: transparent;
-    }
-} 
-
-*/
-
-
 .button-57 {
     margin-bottom: 10%;
     position: relative;

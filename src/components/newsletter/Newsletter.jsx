@@ -3,7 +3,6 @@ import { useState } from "react"
 import styled from "styled-components"
 import { suscription } from "../../redux/apiCalls"
 import { mobile } from "../../responsive"
-import { Alert } from "@material-ui/lab"
 import "./newsletter.css"
 
 const Description = styled.div`
@@ -55,8 +54,8 @@ const Newsletter = () => {
                     <Send/>
                 </button>
             </InputContainer>
-            {correMail ? <Alert severity="success">Su correo se suscribió con exito!</Alert> : null}
-            {failMail ? <Alert severity="error">Error al suscribir el correo.</Alert> : null}
+            {correMail ? <span className="correctNews">CORRECTO</span> : null}
+            {failMail ? <span className="errorNews">ERROR</span> : null}
         </div>
     )
     }
