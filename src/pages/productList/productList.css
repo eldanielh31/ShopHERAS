@@ -1,0 +1,23 @@
+.titleProductList {
+    margin: 20px;
+}
+
+.filterContainerProductList {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filterProductList {
+    margin: 20px;
+}
+
+.filterTextProductList {
+    font-size: 20px;
+    font-weight: 600;
+    margin-right: 20px;
+}
+
+.selectProductList {
+    padding: 10px;
+    margin-right: 20px;
+}

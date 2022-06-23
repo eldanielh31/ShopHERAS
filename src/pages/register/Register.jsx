@@ -18,14 +18,15 @@ const Register = () => {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [mail, setMail] = useState("");
+  const [phone, setPhone] = useState("");
 
   const dispatch = useDispatch();
   const { isFetching, errorRegister } = useSelector((state) => state.user);
 
   const handleRegister = (e) => {
     e.preventDefault();
-    const userName = name + " " + lastName;
-    register(dispatch, { username: username, password: password, name: userName, mail: mail })
+    const fullName = name + " " + lastName;
+    register(dispatch, { username, password, name: fullName, mail, phone})
   };
 
   return (
@@ -63,6 +64,13 @@ const Register = () => {
               <span className="highlight"></span>
               <span className="bar"></span>
               <label>Email</label>
+            </div>
+
+            <div className="group">
+              <input type="text" onChange={(e) => setPhone(e.target.value)} required />
+              <span className="highlight"></span>
+              <span className="bar"></span>
+              <label>Teléfono</label>
             </div>
 
             <div className="group">

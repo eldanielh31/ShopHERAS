@@ -9,7 +9,7 @@ const Product = ({item}) => {
             <img className="imgProduct" src={item.img} alt="imagen del producto" />
             <div className="infoProduct">
                 <div className="iconProduct">
-                    <ShoppingCartOutlined onClick = {()=>console.log("sex")}/>
+                    <ShoppingCartOutlined onClick = {()=>{}}/>
                 </div>
                 <div className="iconProduct">
                     <Link to={`/product/${item._id}`}>

@@ -43,7 +43,9 @@ const Slider = () => {
                         <div className="infoContainerSlider">
                             <h1 className="titleSlider">{item.title}</h1>
                             <p className="descriptionSlider">{item.desc}</p>
-                            <button className="buttonSlider">Comprar</button>
+                            <a href="/products">
+                                <button class="button-48"><span class="text">COMPRAR</span></button>
+                            </a>
                         </div>
                     </Slide>
                 ))}

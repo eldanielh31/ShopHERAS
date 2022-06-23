@@ -201,7 +201,7 @@
     position: relative;
 }
 
-.inputCart{
+.inputCart {
     font-size: 18px;
     padding: 10px 10px 10px 5px;
     display: block;
@@ -245,4 +245,12 @@
 .inputCart:focus~.barCart:before,
 .inputCart:focus~.barCart:after {
     width: 50%;
+}
+
+.errorCart{
+    color:#fc6d49;
+}
+
+.correctCart{
+    color:green;
 }

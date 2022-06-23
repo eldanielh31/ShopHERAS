@@ -27,12 +27,3 @@
     color: white;
     margin-bottom: 20px;
 }
-
-.buttonCategoryItem{
-    border: none;
-    padding: 10px;
-    background-color: white;
-    color: gray;
-    cursor: pointer;
-    font-weight: 600;
-}

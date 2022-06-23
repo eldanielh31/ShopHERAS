@@ -7,36 +7,19 @@ import Footer from "../../components/footer/Footer";
 import { mobile } from "../../responsive";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
-
-const Container = styled.div``;
-
-const Title = styled.h1`
-  margin: 20px;
-`;
-
-const FilterContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
+import "./productList.css"
 
 const Filter = styled.div`
-  margin: 20px;
   ${mobile({ width: "0px 20px", display: "flex", flexDirection: "column" })}
 `;
 
 const FilterText = styled.span`
-  font-size: 20px;
-  font-weight: 600;
-  margin-right: 20px;
   ${mobile({ marginRight: "0px" })}
 `;
 
 const Select = styled.select`
-  padding: 10px;
-  margin-right: 20px;
   ${mobile({ margin: "10px 0px" })}
 `;
-const Option = styled.option``;
 
 const ProductList = () => {
     let location = useLocation();
@@ -48,8 +31,10 @@ const ProductList = () => {
     else if (cat === "t-shirtstep1") {
         catTitle = "T-Shirt Step1"
     }
-    else {
+    else if (cat === "t-shirtheras") {
         catTitle = "T-Shirt Heras"
+    } else {
+        catTitle = "Productos"
     }
     const [filters, setFilters] = useState({});
     const [sort, setSort] = useState("nuevo");
@@ -66,44 +51,44 @@ const ProductList = () => {
         <div>
             <Announcement />
             <Navbar />
-            <Container>
-                <Title>{catTitle}</Title>
-                <FilterContainer>
-                    <Filter>
-                        <FilterText>Filtrar Productos:</FilterText>
-                        <Select name="color" onChange={handleFilters}>
-                            <Option disabled>
+            <div>
+                <h1 className="titleProductList">{catTitle}</h1>
+                <div className="filterContainerProductList">
+                    <Filter className="filterProductList">
+                        <FilterText className="filterTextProductList">Filtrar Productos:</FilterText>
+                        <Select className="selectProductList" name="color" onChange={handleFilters}>
+                            <option disabled>
                                 Color
-                            </Option>
-                            <Option value="white">Blanco</Option>
-                            <Option value="black">Negro</Option>
-                            <Option value="red">Rojo</Option>
-                            <Option value="blue">Azul</Option>
-                            <Option value="yellow">Amarrillo</Option>
-                            <Option value="green">Verde</Option>
+                            </option>
+                            <option value="white">Blanco</option>
+                            <option value="black">Negro</option>
+                            <option value="red">Rojo</option>
+                            <option value="blue">Azul</option>
+                            <option value="yellow">Amarrillo</option>
+                            <option value="green">Verde</option>
                         </Select>
-                        <Select name="size" onChange={handleFilters}>
-                            <Option disabled>
+                        <Select className="selectProductList" name="size" onChange={handleFilters}>
+                            <option disabled>
                                 Size
-                            </Option>
-                            <Option value="XS">XS</Option>
-                            <Option value="S">S</Option>
-                            <Option value="M">M</Option>
-                            <Option value="L">L</Option>
-                            <Option value="XS">XL</Option>
+                            </option>
+                            <option value="XS">XS</option>
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XS">XL</option>
                         </Select>
                     </Filter>
-                    <Filter>
-                        <FilterText>Ordenar Productos:</FilterText>
-                        <Select onChange={(e) => setSort(e.target.value)}>
-                            <Option value="nuevo">Nuevo</Option>
-                            <Option value="asc">Precio (asc)</Option>
-                            <Option value="desc">Precio (desc)</Option>
+                    <Filter className="filterProductList">
+                        <FilterText className="filterTextProductList">Ordenar Productos:</FilterText>
+                        <Select className="selectProductList" onChange={(e) => setSort(e.target.value)}>
+                            <option value="nuevo">Nuevo</option>
+                            <option value="asc">Precio (asc)</option>
+                            <option value="desc">Precio (desc)</option>
                         </Select>
                     </Filter>
-                </FilterContainer>
+                </div>
                 <Products cat={cat} filters={filters} sort={sort} />
-            </Container>
+            </div>
             <Newsletter />
             <Footer />
         </div>

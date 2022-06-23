@@ -14,7 +14,6 @@ const CategoryItem = ({ item }) => {
                 <Imag className="imgCategoryItem" src={item.img} />
                 <div className="infoCategoryItem">
                     <h1 className="titleCategoryItem">{item.title}</h1>
-                    <button className="buttonCategoryItem">Comprar</button>
                 </div>
             </Link>
         </div>

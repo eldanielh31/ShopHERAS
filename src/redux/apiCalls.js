@@ -28,3 +28,11 @@ export const suscription = async(mail)=>{
         console.log(err);
     }
 }
+
+export const postOrder = async(order)=>{
+    try {
+        await publicRequest.post("/order", order);
+    } catch (error) {
+        console.log(error)
+    }
+}

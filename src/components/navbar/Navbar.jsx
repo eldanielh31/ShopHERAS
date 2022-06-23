@@ -4,7 +4,6 @@ import { SearchOutlined, ShoppingCartOutlined } from "@material-ui/icons"
 import { Badge } from '@material-ui/core'
 import { mobile } from '../../responsive'
 import { useDispatch, useSelector } from "react-redux"
-import { Link } from 'react-router-dom'
 import { deleteCurrentUserSuccess, deleteUserFailure, deleteUserStart } from '../../redux/userRedux'
 import "./navbar.css"
 
@@ -23,7 +22,6 @@ const Input = styled.input`
 //NAVBAR CENTRO
 
 const Logo = styled.h1`
-
   ${mobile({ fontSize: "24px" })}
 `
 
@@ -61,26 +59,27 @@ const Navbar = () => {
             <SearchOutlined style={{ color: "gray", frontSize: 16 }} />
             <Input className='inputSearch' />
           </div>
+
         </div>
-
-
         <div className='center'>
-          <Link to="/">
-            <Logo className='logo'>HERAS.</Logo>
-          </Link>
+          <Logo className='logo'>
+            <a className='logo' href='/'> HERAS </a>
+          </Logo>
         </div>
 
         <Rigth className='rigth'>
           {((user !== null)) ?
-            <MenuItem className='menuItem' onClick={handleLogout}>Cerrar Sesion</MenuItem>
-            :<MenuItem><a href='/login'>INICIAR SESIÓN</a></MenuItem>}
-          <Link to="/cart">
-            <MenuItem className='menuItem'>
+            <MenuItem className='menuItem' onClick={handleLogout}> <a className='menuItemLink' href='/'>Cerrar Sesion</a></MenuItem>
+            : <MenuItem className='menuItem'><a className='menuItemLink' href='/login'>INICIAR SESIÓN</a></MenuItem>}
+
+          <a href="/cart" className='menuItemLink' >
+            <MenuItem className='menuItemIcon'>
               <Badge badgeContent={quantity} color="primary">
                 <ShoppingCartOutlined fontSize='medium' />
               </Badge>
             </MenuItem>
-          </Link>
+          </a>
+          
         </Rigth>
       </Wrapper>
     </Container>

@@ -17,8 +17,8 @@ const InputContainer = styled.div`
 const Newsletter = () => {
 
     const [mail, setMail] = useState("");
-    const [correMail, setCorreMail] = useState();
-    const [failMail, setFailMail] = useState();
+    const [correMail, setCorreMail] = useState("");
+    const [failMail, setFailMail] = useState("");
 
     const correctMail = (mail)=>{
         const emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
@@ -34,13 +34,18 @@ const Newsletter = () => {
     const handleClick = (e)=>{
         if (correctMail(mail)) {
             //Valido
-            setCorreMail(true)
-            setFailMail(false)
-            suscription({mail})
+            setCorreMail("Suscripción completa")
+            setFailMail("")
+            try {
+                suscription({mail})
+            } catch (error) {
+                setCorreMail("")
+                setFailMail("Error al suscribir el correo")
+            }
         } else {
             //Invalido
-            setCorreMail(false)
-            setFailMail(true)
+            setCorreMail("")
+            setFailMail("Error al verificar el correo")
         }
     }
 
@@ -54,8 +59,8 @@ const Newsletter = () => {
                     <Send/>
                 </button>
             </InputContainer>
-            {correMail ? <span className="correctNews">CORRECTO</span> : null}
-            {failMail ? <span className="errorNews">ERROR</span> : null}
+            <span className="correctNews">{correMail}</span>
+            <span className="errorNews">{failMail}</span>
         </div>
     )
     }

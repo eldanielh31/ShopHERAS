@@ -10,6 +10,7 @@ import { addQuantityProduct, clearCart, deleteProduct, deleteQuantityProduct } f
 import "./cart.css"
 import { useEffect, useState } from "react";
 import { publicRequest } from "../../requestMethods";
+import { postOrder } from "../../redux/apiCalls";
 
 const Wrapper = styled.div`
   ${mobile({ padding: "10px" })}
@@ -37,12 +38,15 @@ const SummaryItem = styled.div`
 `;
 
 const Cart = () => {
+  const currentUser = useSelector(state => state.user.currentUser);
   const cart = useSelector(state => state.cart);
   const products = useSelector(state => state.cart.products);
   const dispatch = useDispatch();
   const [coupon, setCoupon] = useState("");
   const [coupons, setCoupons] = useState([]);
   const [discount, setDiscount] = useState(0);
+  const [messageError, setMessageError] = useState("");
+  const [messageCorrect, setMessageCorrect] = useState("");
 
   useEffect(() => {
     const getCoupons = async () => {
@@ -63,8 +67,24 @@ const Cart = () => {
   };
 
   const handleBuy = () => {
-    if (products) {
-      dispatch(clearCart());
+    if (currentUser) {
+      if(products.length > 0){
+        try {
+          let userId = currentUser._id;
+          let amount = (cart.total - discount > 0) ? cart.total - discount : cart.total;
+          let phone = currentUser.phone;
+          postOrder({ userId, products, amount, phone })
+          dispatch(clearCart());
+          setMessageCorrect("Enviado correctamente");
+          setMessageError("")
+        } catch (error) {
+          setMessageError("Algo salió mal")
+        }
+      }else{
+        setMessageError("Su carrito está vacio")
+      }
+    } else {
+      setMessageError("Inicie sesión para continuar...")
     }
   };
 
@@ -77,7 +97,7 @@ const Cart = () => {
   };
 
   const handleCoupon = () => {
-    coupons.forEach((item)=>{
+    coupons.forEach((item) => {
       if (item.codename === coupon) {
         setDiscount(item.discount);
       }
@@ -159,6 +179,8 @@ const Cart = () => {
                 <span>Total</span>
                 <span>₡ {(cart.total - discount > 0) ? cart.total - discount : cart.total}</span>
               </SummaryItem>
+              <span className="correctCart">{messageCorrect}</span>
+              <span className="errorCart">{messageError}</span>
               <button className="button-28" onClick={handleBuy}>COMPRAR</button>
             </div>
           </Bottom>

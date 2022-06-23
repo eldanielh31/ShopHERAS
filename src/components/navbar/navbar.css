@@ -1,16 +1,17 @@
-.navbar {
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600&display=swap');.navbar {
     background-color: white;
     height: auto;
 }
 
 .wrapper {
-    padding: 10px 20px;
+    padding: 10px 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
 .left {
+    margin-left: 20px;
     flex: 1;
     display: flex;
     align-items: center;
@@ -20,10 +21,10 @@
     border: 0.5px solid lightgray;
     display: flex;
     align-items: center;
-    padding: 5px;
 }
 
 .inputSearch {
+    width: 50%;
     border: none;
 }
 
@@ -33,11 +34,22 @@
 }
 
 .logo {
-    font-weight: bold;
+    outline: none;
+    text-decoration: none;
+    color: black;
+    font-family: 'Nunito Sans', sans-serif;
     cursor: pointer;
 }
 
+.menuItemLink{
+    font-family: 'Nunito Sans', sans-serif;
+    text-decoration: none;
+    outline: none;
+    color: black;
+}
+
 .rigth {
+    margin-right: 20px;
     flex: 1;
     display: flex;
     align-items: center;
@@ -45,15 +57,26 @@
 }
 
 .menuItem {
-    margin-left: 30px;
-    width: 40px;
-    height: 40px;
+    width: 150px;
+    height: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.5s ease;
 }
+.menuItemIcon {
+    width: 40px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s ease;
+}
+.menuItemIcon:hover {
+    transform: scale(1.1);
+}
 
 .menuItem:hover {
     transform: scale(1.1);
 }
+
