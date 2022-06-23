@@ -8,6 +8,7 @@ const productRoute = require("./routes/product");
 const cartRoute = require("./routes/cart");
 const orderRoute = require("./routes/order");
 const suscriptionRoute = require("./routes/suscription");
+const couponRoute = require('./routes/coupon');
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use("/api/products", productRoute);
 app.use("/api/cart", cartRoute);
 app.use("/api/order", orderRoute);
 app.use("/api/suscription", suscriptionRoute);
+app.use("/api/coupon", couponRoute);
 
 //Escuchar al puerto
 app.listen(process.env.PORT, ()=> {

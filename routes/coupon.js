@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { response } = require("express");
-const Suscription = require("../modules/Suscription");
-const { verifyTokenAndAdmi } = require("../routes/verifyToken");
+const Coupon = require("../modules/Coupon");
+const { verifyTokenAndAdmi } = require("./verifyToken");
 
 router.use(async function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
@@ -13,10 +13,10 @@ router.use(async function (req, res, next) {
 //CREATE
 
 router.post("/", async (req, res) => {
-    const newSuscription = new Suscription(req.body);
+    const newCoupon = new Coupon(req.body);
     try {
-        const savedSuscription = await newSuscription.save();
-        res.status(200).json(savedSuscription);
+        const savedCoupon = await newCoupon.save();
+        res.status(200).json(savedCoupon);
     } catch (err) {
         res.status(500).json(err);
         console.log(err);
@@ -24,20 +24,20 @@ router.post("/", async (req, res) => {
 });
 
 //DELETE
-router.delete("/:mail", async (req, res) => {
+router.delete("/:codename", async (req, res) => {
     try {
-        await Suscription.findOneAndDelete({ mail : req.params.mail });
-        res.status(200).json("Suscripcion eliminada.")
+        await Coupon.findOneAndDelete({ codename: req.params.codename });
+        res.status(200).json("Cupon eliminado.")
     } catch (err) {
         res.status(500).json(err);
     }
 });
 
 //GET PRODUCT
-router.get("/:mail", async (req, res) => {
+router.get("/:codename", async (req, res) => {
     try {
-        const findedSuscription = await Suscription.findOne({ mail: req.params.mail });
-        res.status(200).json(findedSuscription);
+        const findedCoupon = await Coupon.findOne({ codename: req.params.codename });
+        res.status(200).json(findedCoupon);
     } catch (err) {
         res.status(500).json(err);
         console.log(err);
@@ -47,8 +47,8 @@ router.get("/:mail", async (req, res) => {
 //GET ALL
 router.get("/", async (req, res) => {
     try {
-        const Suscriptions = await Suscription.find();
-        res.status(200).json(Suscriptions);
+        const Coupons = await Coupon.find();
+        res.status(200).json(Coupons);
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
