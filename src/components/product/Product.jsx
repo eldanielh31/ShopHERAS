@@ -2,14 +2,14 @@ import { FavoriteBorderOutlined, SearchOutlined, ShoppingCartOutlined } from "@m
 import { Link } from "react-router-dom";
 import "./product.css"
 
-const Product = ({ key, item }) => {
+const Product = ({item}) => {
     return (
         <div className="productContainer">
             <div className="circleProduct" />
             <img className="imgProduct" src={item.img} alt="imagen del producto" />
             <div className="infoProduct">
                 <div className="iconProduct">
-                    <ShoppingCartOutlined />
+                    <ShoppingCartOutlined onClick = {()=>console.log("sex")}/>
                 </div>
                 <div className="iconProduct">
                     <Link to={`/product/${item._id}`}>

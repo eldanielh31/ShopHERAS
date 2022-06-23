@@ -1,44 +1,43 @@
+import Cart from "./pages/cart/Cart";
 import Home from "./pages/home/Home";
+import Login from "./pages/login/Login";
 import ProductList from "./pages/productList/ProductList";
-import Cart from "./pages/cart/Cart"
-import Login from "./pages/login/Login"
-import Register from "./pages/register/Register"
+import Register from "./pages/register/Register";
 
 import {
   BrowserRouter as Router,
-  //Redirect,
-  Route,
+  Redirect,
+  Route
 } from "react-router-dom";
 
+import { useSelector } from "react-redux";
 import { Switch } from "react-router-dom";
 import Product from "./pages/product/Product";
-import { useSelector } from "react-redux";
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 const App = () => {
-  const user = useSelector(state=> state.user.currentUser);
+
+  const user = useSelector(state => state.user.currentUser);
 
   return (
     <Router>
       <Switch>
         <Route exact path="/">
-          <Home/>
+          <Home />
         </Route>
         <Route exact path="/products/:category">
-          <ProductList/>
+          <ProductList />
         </Route>
         <Route exact path="/product/:id">
-          <Product/>
+          <Product />
         </Route>
         <Route exact path="/cart">
-          <Cart/>
+          <Cart />
         </Route>
         <Route exact path="/login">
           {(user !== null) ? <Redirect to="/" /> : <Login />}
-          {/* <Login/> */}
         </Route>
         <Route exact path="/register">
-          <Register/> 
+          {(user !== null) ? <Redirect to="/" /> : <Register />}
         </Route>
       </Switch>
     </Router>

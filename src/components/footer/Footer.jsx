@@ -21,16 +21,16 @@ const Container = styled.div`
 const Footer = () => {
   return (
     <Container>
-        <div class="footer-content">
+        <div className="footer-content">
           <h3>HERAS</h3>
           <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo iste corrupti doloribus odio sed!</p>
-          <ul class="socials">
+        <ul className="socials">
           <li><a href="https://www.facebook.com"><i><Facebook/></i></a></li>
           <li><a href="https://www.twitter.com"><i><Twitter/></i></a></li>
           <li><a href="https://www.instagram.com"><i><Instagram /></i></a></li>
           </ul>
         </div>
-        <div class="footer-bottom">
+      <div className="footer-bottom">
           <p>copyright &copy;2022 HERAS. designed by <span>Daniel Brenes</span></p>
         </div>
       </Container>

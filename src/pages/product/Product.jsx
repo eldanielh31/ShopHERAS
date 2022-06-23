@@ -16,7 +16,7 @@ const Container = styled.div``;
 const Wrapper = styled.div`
   padding: 50px;
   display: flex;
-  ${mobile({ padding: "10px", flexDirection:"column" })}
+  ${mobile({ padding: "10px", flexDirection: "column" })}
 `;
 
 const ImgContainer = styled.div`
@@ -115,23 +115,23 @@ const Product = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
 
-  const[product, setProduct] = useState({});
-  const[quantity, setQuantity] = useState(1);
+  const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState("XS");
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-    const getProduct = async()=>{
-      try{
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
         const res = await publicRequest.get("/products/find/" + id)
         setProduct(res.data);
-      }catch{
+      } catch {
 
       }
     }
     getProduct()
   }, [id]);
-  
+
   const handleQuantity = (type) => {
     if (type === "-") {
       quantity > 1 && setQuantity(quantity - 1);
@@ -140,49 +140,51 @@ const Product = () => {
     }
   };
 
-  const handleClick = ()=>{
+  const handleClick = () => {
     dispatch(
-      addProduct({...product, quantity, size})
+      addProduct({ ...product, quantity, size })
     );
   };
 
   return (
-    <Container>
-      <Navbar />
+    <div>
       <Announcement />
-      <Wrapper>
-        <ImgContainer>
-          <Image src={product.img} />
-        </ImgContainer>
-        <InfoContainer>
-          <Title>{product.title}</Title>
-          <Desc>
-            {product.desc}
-          </Desc>
-          <Price>₡{product.price}</Price>
-          <FilterContainer>
-            <Filter>
-              <FilterTitle>Size</FilterTitle>
-              <FilterSize onChange={(e) => setSize(e.target.value)}>
-                {product.size?.map((s) => (
-                  <FilterSizeOption key={s}>{s}</FilterSizeOption>
-                ))}
-              </FilterSize>
-            </Filter>
-          </FilterContainer>
-          <AddContainer>
-            <AmountContainer>
-              <Remove onClick={()=>handleQuantity("-")}/>
-              <Amount>{quantity}</Amount>
-              <Add onClick={()=>handleQuantity("+")}/>
-            </AmountContainer>
-            <Button onClick={handleClick}>AÑADIR AL CARRITO</Button>
-          </AddContainer>
-        </InfoContainer>
-      </Wrapper>
-      <Newsletter/>
-      <Footer/>
-    </Container>
+      <Navbar />
+      <Container>
+        <Wrapper>
+          <ImgContainer>
+            <Image src={product.img} />
+          </ImgContainer>
+          <InfoContainer>
+            <Title>{product.title}</Title>
+            <Desc>
+              {product.desc}
+            </Desc>
+            <Price>₡{product.price}</Price>
+            <FilterContainer>
+              <Filter>
+                <FilterTitle>Size</FilterTitle>
+                <FilterSize onChange={(e) => setSize(e.target.value)}>
+                  {product.size?.map((s) => (
+                    <FilterSizeOption key={s}>{s}</FilterSizeOption>
+                  ))}
+                </FilterSize>
+              </Filter>
+            </FilterContainer>
+            <AddContainer>
+              <AmountContainer>
+                <Remove onClick={() => handleQuantity("-")} />
+                <Amount>{quantity}</Amount>
+                <Add onClick={() => handleQuantity("+")} />
+              </AmountContainer>
+              <Button onClick={handleClick}>AÑADIR AL CARRITO</Button>
+            </AddContainer>
+          </InfoContainer>
+        </Wrapper>
+      </Container>
+      <Newsletter />
+      <Footer />
+    </div>
   );
 };
 

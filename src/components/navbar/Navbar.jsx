@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Search, ShoppingCartOutlined } from "@material-ui/icons"
+import { SearchOutlined, ShoppingCartOutlined } from "@material-ui/icons"
 import { Badge } from '@material-ui/core'
 import { mobile } from '../../responsive'
-import {useDispatch, useSelector} from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Link } from 'react-router-dom'
 import { deleteCurrentUserSuccess, deleteUserFailure, deleteUserStart } from '../../redux/userRedux'
 import "./navbar.css"
@@ -34,12 +34,11 @@ const Rigth = styled.div`
   ${mobile({ flex: 2, justifyContent: "center" })}
 `
 const MenuItem = styled.div`
-
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `
 
 const Navbar = () => {
-  const quantity = useSelector(state=>state.cart.quantity);
+  const quantity = useSelector(state => state.cart.quantity);
   const user = useSelector(state => state.user.currentUser);
   const dispatch = useDispatch();
 
@@ -57,12 +56,14 @@ const Navbar = () => {
     <Container className='navbar'>
       <Wrapper className='wrapper'>
         <div className='left'>
+          
           <div className='searchContainer'>
-            <Input className='input'/>
-            <Search style={{color:"gray", frontSize: 16}}/>
+            <SearchOutlined style={{ color: "gray", frontSize: 16 }} />
+            <Input className='inputSearch' />
           </div>
         </div>
-        
+
+
         <div className='center'>
           <Link to="/">
             <Logo className='logo'>HERAS.</Logo>
@@ -70,11 +71,13 @@ const Navbar = () => {
         </div>
 
         <Rigth className='rigth'>
-          {((user !== null)) ? <MenuItem className='menuItem' onClick={handleLogout}>Cerrar Sesion</MenuItem> : <Link to="/login"><MenuItem>Iniciar sesión</MenuItem></Link>}
-          <Link to = "/cart">
+          {((user !== null)) ?
+            <MenuItem className='menuItem' onClick={handleLogout}>Cerrar Sesion</MenuItem>
+            :<MenuItem><a href='/login'>INICIAR SESIÓN</a></MenuItem>}
+          <Link to="/cart">
             <MenuItem className='menuItem'>
               <Badge badgeContent={quantity} color="primary">
-                <ShoppingCartOutlined/>
+                <ShoppingCartOutlined fontSize='medium' />
               </Badge>
             </MenuItem>
           </Link>

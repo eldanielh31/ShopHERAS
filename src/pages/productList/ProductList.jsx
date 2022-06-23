@@ -63,48 +63,50 @@ const ProductList = () => {
     }
 
     return (
-        <Container>
-            <Navbar />
+        <div>
             <Announcement />
-            <Title>{catTitle}</Title>
-            <FilterContainer>
-                <Filter>
-                    <FilterText>Filtrar Productos:</FilterText>
-                    <Select name="color" onChange={handleFilters}>
-                        <Option disabled>
-                            Color
-                        </Option>
-                        <Option value="white">Blanco</Option>
-                        <Option value="black">Negro</Option>
-                        <Option value="red">Rojo</Option>
-                        <Option value="blue">Azul</Option>
-                        <Option value="yellow">Amarrillo</Option>
-                        <Option value="green">Verde</Option>
-                    </Select>
-                    <Select name="size" onChange={handleFilters}>
-                        <Option disabled>
-                            Size
-                        </Option>
-                        <Option value="XS">XS</Option>
-                        <Option value="S">S</Option>
-                        <Option value="M">M</Option>
-                        <Option value="L">L</Option>
-                        <Option value="XS">XL</Option>
-                    </Select>
-                </Filter>
-                <Filter>
-                    <FilterText>Ordenar Productos:</FilterText>
-                    <Select onChange={(e) => setSort(e.target.value)}>
-                        <Option value="nuevo">Nuevo</Option>
-                        <Option value="asc">Precio (asc)</Option>
-                        <Option value="desc">Precio (desc)</Option>
-                    </Select>
-                </Filter>
-            </FilterContainer>
-            <Products cat={cat} filters={filters} sort={sort} />
+            <Navbar />
+            <Container>
+                <Title>{catTitle}</Title>
+                <FilterContainer>
+                    <Filter>
+                        <FilterText>Filtrar Productos:</FilterText>
+                        <Select name="color" onChange={handleFilters}>
+                            <Option disabled>
+                                Color
+                            </Option>
+                            <Option value="white">Blanco</Option>
+                            <Option value="black">Negro</Option>
+                            <Option value="red">Rojo</Option>
+                            <Option value="blue">Azul</Option>
+                            <Option value="yellow">Amarrillo</Option>
+                            <Option value="green">Verde</Option>
+                        </Select>
+                        <Select name="size" onChange={handleFilters}>
+                            <Option disabled>
+                                Size
+                            </Option>
+                            <Option value="XS">XS</Option>
+                            <Option value="S">S</Option>
+                            <Option value="M">M</Option>
+                            <Option value="L">L</Option>
+                            <Option value="XS">XL</Option>
+                        </Select>
+                    </Filter>
+                    <Filter>
+                        <FilterText>Ordenar Productos:</FilterText>
+                        <Select onChange={(e) => setSort(e.target.value)}>
+                            <Option value="nuevo">Nuevo</Option>
+                            <Option value="asc">Precio (asc)</Option>
+                            <Option value="desc">Precio (desc)</Option>
+                        </Select>
+                    </Filter>
+                </FilterContainer>
+                <Products cat={cat} filters={filters} sort={sort} />
+            </Container>
             <Newsletter />
             <Footer />
-        </Container>
+        </div>
     );
 };
 

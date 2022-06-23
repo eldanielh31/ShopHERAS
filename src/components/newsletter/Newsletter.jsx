@@ -51,7 +51,7 @@ const Newsletter = () => {
             <Description className="descriptionNewsletter">Obtenga actualizaciones en tiempo real de tus productos favoritos</Description>
             <InputContainer className="inputContainer" onChange={(e)=> setMail(e.target.value) }>
                 <input className="input" placeholder = "Tu email"/>
-                <button className="buttonNewsletter" onClick={handleClick}>
+                <button className="button-35" onClick={handleClick}>
                     <Send/>
                 </button>
             </InputContainer>

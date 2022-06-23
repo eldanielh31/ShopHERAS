@@ -3,96 +3,64 @@ import { mobile } from "../../responsive";
 import { useState } from "react"
 import { login } from "../../redux/apiCalls"
 import { useDispatch, useSelector } from "react-redux";
-
-const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background: linear-gradient(
-      rgba(255, 255, 255, 0.5),
-      rgba(255, 255, 255, 0.5)
-    ),
-    url("https://i.ibb.co/mhtCJFS/login2.png")
-      center;
-  background-repeat: no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+import Announcement from "../../components/announcement/Announcement";
+import Navbar from "../../components/navbar/Navbar";
+import "./login.css"
+import Footer from "../../components/footer/Footer";
 
 const Wrapper = styled.div`
-  width: 25%;
-  padding: 20px;
-  background-color: white;
+  
   ${mobile({ width: "75%" })}
 `;
 
-const Title = styled.h1`
-  font-size: 24px;
-  font-weight: 300;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Input = styled.input`
-  flex: 1;
-  min-width: 40%;
-  margin: 10px 0;
-  padding: 10px;
-`;
-
-const Button = styled.button`
-  width: 40%;
-  border: none;
-  padding: 15px 20px;
-  background-color: teal;
-  color: white;
-  cursor: pointer;
-  margin-bottom: 10px;
-  &:disabled{
-    color:green;
-    cursor: not-allowed;
-  }
-`;
-
-const Link = styled.a`
-  margin: 5px 0px;
-  font-size: 12px;
-  text-decoration: underline;
-  cursor: pointer;
-`;
-
-const Error = styled.span`
-  color: red;
-`
-
 const Login = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const dispatch = useDispatch();
-    const { isFetching, error } = useSelector((state) => state.user);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const { isFetching, error } = useSelector((state) => state.user);
 
-    const handleClick = (e) => {
-        e.preventDefault()
-        login(dispatch, { username, password });
-    };
-    return (
-        <Container>
-            <Wrapper>
-                <Title>INICIAR SESIÓN</Title>
-                <Form>
-                    <Input placeholder="Usuario" onChange={(e) => setUsername(e.target.value)} />
-                    <Input type="password" placeholder="Contraseña" onChange={(e) => setPassword(e.target.value)} />
-                    <Button onClick={handleClick} disabled={isFetching}>INICIAR SESIÓN</Button>
-                    {error && <Error>Algo salió mal</Error>}
-                    <Link>OLVIDÓ LA CONTRASEÑA?</Link>
-                    <Link>CREAR CUENTA</Link>
-                </Form>
-            </Wrapper>
-        </Container>
-    );
+  const handleClick = (e) => {
+    e.preventDefault()
+    login(dispatch, { username, password });
+  };
+  return (
+    <div>
+      <Announcement />
+      <Navbar />
+      <div className="containerLogin">
+        <Wrapper className="wrapperLogin">
+          <h1 className="titleLogin">INICIAR SESIÓN</h1>
+          <form className="formLogin">
+
+            <div className="group">
+              <input type="text" onChange={(e) => setUsername(e.target.value)} required />
+              <span className="highlight"></span>
+              <span className="bar"></span>
+              <label>Usuario</label>
+            </div>
+
+            <div className="group">
+              <input type="password" onChange={(e) => setPassword(e.target.value)} required />
+              <span className="highlight"></span>
+              <span className="bar"></span>
+              <label>Contraseña</label>
+            </div>
+
+            <button className="button-57" onClick={handleClick} disabled={isFetching}>
+              <span className="text"> INICIAR SESIÓN</span>
+              <span>OK.</span>
+            </button>
+
+            {error && <span className="errorLogin">Algo salió mal , intente de nuevo.</span>}
+            <a href="/" className="linkLogin">OLVIDÓ LA CONTRASEÑA?</a>
+            <a href="/register" className="linkLogin">CREAR CUENTA</a>
+
+          </form>
+        </Wrapper>
+      </div>
+      <Footer />
+    </div>
+  );
 };
 
 export default Login;

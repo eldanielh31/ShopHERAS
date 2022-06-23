@@ -1,80 +1,96 @@
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import Announcement from "../../components/announcement/Announcement";
+import Footer from "../../components/footer/Footer";
+import Navbar from "../../components/navbar/Navbar";
+import { register } from "../../redux/apiCalls";
 import { mobile } from "../../responsive";
-
-const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background: linear-gradient(
-      rgba(255, 255, 255, 0.5),
-      rgba(255, 255, 255, 0.5)
-    ),
-    url("https://i.ibb.co/Wt7GngT/Register2.png")
-      right;
-  background-repeat: no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+import "./register.css"
 
 const Wrapper = styled.div`
-  width: 40%;
-  padding: 20px;
-  background-color: white;
   ${mobile({ width: "75%" })}
 `;
 
-const Title = styled.h1`
-  font-size: 24px;
-  font-weight: 300;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-const Input = styled.input`
-  flex: 1;
-  min-width: 40%;
-  margin: 20px 10px 0px 0px;
-  padding: 10px;
-`;
-
-const Agreement = styled.span`
-  font-size: 12px;
-  margin: 20px 0px;
-`;
-
-const Button = styled.button`
-  width: 40%;
-  border: none;
-  padding: 15px 20px;
-  background-color: teal;
-  color: white;
-  cursor: pointer;
-`;
-
 const Register = () => {
-    return (
-        <Container>
-            <Wrapper>
-                <Title>CREAR UNA CUENTA.</Title>
-                <Form>
-                    <Input placeholder="Nombre" />
-                    <Input placeholder="Apellidos" />
-                    <Input placeholder="Usuario" />
-                    <Input placeholder="Correo Electronico" />
-                    <Input placeholder="Contraseña" />
-                    <Input placeholder="Confirmar contraseña" />
-                    <Agreement>
-                        Al crear una cuenta, doy mi consentimiento para el procesamiento de mis datos personales.
-                        datos de acuerdo con el  <b>PRIVACY POLICY</b>
-                    </Agreement>
-                    <Button>CREAR</Button>
-                </Form>
-            </Wrapper>
-        </Container>
-    );
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [mail, setMail] = useState("");
+
+  const dispatch = useDispatch();
+  const { isFetching, errorRegister } = useSelector((state) => state.user);
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    const userName = name + " " + lastName;
+    register(dispatch, { username: username, password: password, name: userName, mail: mail })
+  };
+
+  return (
+    <div>
+      <Announcement/>
+      <Navbar />
+      <div className="containerRegister">
+        <Wrapper className="wrapperRegister">
+          <h1 className="titleRegister">CREAR UNA CUENTA.</h1>
+          <form className="formRegister">
+
+            <div className="group">
+              <input type="text" onChange={(e) => setName(e.target.value)} required />
+              <span className="highlight"></span>
+              <span className="bar"></span>
+              <label>Nombre</label>
+            </div>
+
+            <div className="group">
+              <input type="text" onChange={(e) => setLastName(e.target.value)} required />
+              <span className="highlight"></span>
+              <span className="bar"></span>
+              <label>Apellidos</label>
+            </div>
+
+            <div className="group">
+              <input type="text" onChange={(e) => setUsername(e.target.value)} required />
+              <span className="highlight"></span>
+              <span className="bar"></span>
+              <label>Usuario</label>
+            </div>
+
+            <div className="group">
+              <input type="text" onChange={(e) => setMail(e.target.value)} required />
+              <span className="highlight"></span>
+              <span className="bar"></span>
+              <label>Email</label>
+            </div>
+
+            <div className="group">
+              <input type="password" onChange={(e) => setPassword(e.target.value)} required />
+              <span className="highlight"></span>
+              <span className="bar"></span>
+              <label>Contraseña</label>
+            </div>
+
+            {errorRegister && <span className="errorRegister">Algo salió mal, intente de nuevo.</span>}
+
+            <span className="agreementRegister">
+              Al crear una cuenta, doy mi consentimiento para el procesamiento de mis datos personales.
+              datos de acuerdo con el  <b>PRIVACY POLICY</b>
+            </span>
+
+
+
+            <button className="button-57" onClick={handleRegister} disabled={isFetching}>
+              <span className="text"> REGISTRAR </span>
+              <span>OK.</span>
+            </button>
+          </form>
+        </Wrapper>
+      </div>
+      <Footer />
+    </div>
+  );
 };
 
 export default Register;
