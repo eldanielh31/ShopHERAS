@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Announcement from "../../components/announcement/Announcement";
 import Footer from "../../components/footer/Footer";
 import Navbar from "../../components/navbar/Navbar";
-import { register } from "../../redux/apiCalls";
+import { getUserbyMail, getUserbyPhone, getUserbyUsername, register } from "../../redux/apiCalls";
 import { mobile } from "../../responsive";
 import "./register.css"
 
@@ -20,18 +20,55 @@ const Register = () => {
   const [mail, setMail] = useState("");
   const [phone, setPhone] = useState("");
 
-  const dispatch = useDispatch();
-  const { isFetching, errorRegister } = useSelector((state) => state.user);
+  const [error, setError] = useState("");
 
-  const handleRegister = (e) => {
+  const dispatch = useDispatch();
+  const { isFetching } = useSelector((state) => state.user);
+
+  const checkUsername = async(userna) => {
+    let tempUser = await getUserbyUsername(userna);
+    return !(Object.keys(tempUser).length === 0);
+  };
+
+  const checkPhone = async(phone) => {
+    let tempUser = await getUserbyPhone(phone);
+    return !(Object.keys(tempUser).length === 0);
+  };
+
+
+  const checkMail = async(mail) => {
+    let tempUser = await getUserbyMail(mail);
+    return !(Object.keys(tempUser).length === 0);
+  };
+
+
+  const handleRegister = async(e) => {
     e.preventDefault();
-    const fullName = name + " " + lastName;
-    register(dispatch, { username, password, name: fullName, mail, phone})
+    if (await checkUsername(username)) {
+      setError("Usuario ya reguistrado.")
+    }
+    else {
+      if (await checkPhone(phone)) {
+        setError("Teléfono ya reguistrado.")
+      }
+      else {
+        if (await checkMail(mail)) {
+          setError("Email ya reguistrado.")
+        }
+        else {
+          const fullName = name + " " + lastName;
+          console.log({username, password, name: fullName, mail, phone })
+          const user = await register(dispatch, { username, password, name: fullName, mail, phone })
+          console.log(user);
+          setError("")
+        }
+      }
+    }
   };
 
   return (
     <div>
-      <Announcement/>
+      <Announcement />
       <Navbar />
       <div className="containerRegister">
         <Wrapper className="wrapperRegister">
@@ -80,14 +117,12 @@ const Register = () => {
               <label>Contraseña</label>
             </div>
 
-            {errorRegister && <span className="errorRegister">Algo salió mal, intente de nuevo.</span>}
+            <span className="errorRegister">{error}</span>
 
             <span className="agreementRegister">
               Al crear una cuenta, doy mi consentimiento para el procesamiento de mis datos personales.
               datos de acuerdo con el  <b>PRIVACY POLICY</b>
             </span>
-
-
 
             <button className="button-57" onClick={handleRegister} disabled={isFetching}>
               <span className="text"> REGISTRAR </span>

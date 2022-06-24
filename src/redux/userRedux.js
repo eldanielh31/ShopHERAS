@@ -6,7 +6,6 @@ const userSlice = createSlice({
         currentUser : null,
         isFetching:false,
         error: false,
-        errorRegister: false,
     },
     reducers:{
         loginStart:(state)=>{
@@ -28,11 +27,9 @@ const userSlice = createSlice({
         registerSuccess: (state, action) => {
             state.isFetching = false;
             state.currentUser = action.payload;
-            state.errorRegister = false;
         },
         registerFailure: (state) => {
             state.isFetching = false;
-            state.errorRegister = true;
         },
 
         //DELETE
