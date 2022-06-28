@@ -4,8 +4,8 @@ import {
   TrendingUp,
   PermIdentity,
   Storefront,
-  BarChart,
   MailOutline,
+  AddShoppingCartOutlined,
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
@@ -17,11 +17,11 @@ export default function Sidebar() {
           <h3 className="sidebarTitle">Menu</h3>
           <ul className="sidebarList">
             <Link to="/" className="link">
-            <li className="sidebarListItem active">
-              <LineStyle className="sidebarIcon" />
-              Inicio
-            </li>
-            </Link>      
+              <li className="sidebarListItem active">
+                <LineStyle className="sidebarIcon" />
+                Inicio
+              </li>
+            </Link>
           </ul>
         </div>
 
@@ -43,7 +43,7 @@ export default function Sidebar() {
             <Link to="/sales" className="link">
               <li className="sidebarListItem">
                 <TrendingUp className="sidebarIcon" />
-                Ventas
+                Ordenes
               </li>
             </Link>
 
@@ -59,20 +59,24 @@ export default function Sidebar() {
                 Productos
               </li>
             </Link>
-          </ul>      
+          </ul>
         </div>
 
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Administrar</h3>
           <ul className="sidebarList">
-            <li className="sidebarListItem">
-              <BarChart className="sidebarIcon" />
-              Reportes
-            </li>
-            <li className="sidebarListItem">
-              <MailOutline className="sidebarIcon" />
-              Suscripciones
-            </li>
+            <Link to="/coupons" className="link">
+              <li className="sidebarListItem">
+                <AddShoppingCartOutlined className="sidebarIcon" />
+                Cupones
+              </li>
+            </Link>
+            <Link to="/suscriptions" className="link">
+              <li className="sidebarListItem">
+                <MailOutline className="sidebarIcon" />
+                Suscripciones
+              </li>
+            </Link>
           </ul>
         </div>
       </div>

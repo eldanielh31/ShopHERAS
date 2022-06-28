@@ -1,121 +1,167 @@
 import {
   CalendarToday,
-  LocationSearching,
   MailOutline,
   PermIdentity,
   PhoneAndroid,
-  Publish,
+  AccessibilityRounded
 } from "@material-ui/icons";
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { format } from "timeago.js";
+import { updateUserbyId } from "../../redux/apiCalls";
+import { userRequest } from "../../requestMethods";
 import "./user.css";
 
 export default function User() {
+
+  const location = useLocation();
+  const userId = location.pathname.split("/")[2];
+  const [user, setUser] = useState({});
+
+  const [isAdmin, setIsAdmi] = useState(false);
+  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [mail, setMail] = useState("");
+  const [phone, setPhone] = useState("");
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const res = await userRequest.get("users/" + userId);
+        setUser(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+
+    }; getUser();
+  }, [userId]);
+
+  const handleUpdate = () => {
+    const updateUser = {};
+    if(username !== ""){
+      updateUser.username = username
+    };
+    if (name !== "") {
+      updateUser.name = name
+    };
+    if (mail !== "") {
+      updateUser.mail = mail
+    };
+    if (phone !== "") {
+      updateUser.phone = phone
+    };
+    updateUser.isAdmin = isAdmin;
+    updateUserbyId(userId, updateUser);
+    window.location.reload();
+  };
+
   return (
     <div className="user">
       <div className="userTitleContainer">
-        <h1 className="userTitle">Edit User</h1>
+        <h1 className="userTitle">Editar usuario</h1>
         <Link to="/newUser">
-          <button className="userAddButton">Create</button>
+          <button className="userAddButton">Crear</button>
         </Link>
       </div>
       <div className="userContainer">
         <div className="userShow">
           <div className="userShowTop">
             <img
-              src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+              src="https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-17.jpg"
               alt=""
               className="userShowImg"
             />
             <div className="userShowTopTitle">
-              <span className="userShowUsername">Anna Becker</span>
-              <span className="userShowUserTitle">Software Engineer</span>
+              <span className="userShowUsername">{user.name}</span>
+              <span className="userShowUserTitle">{user._id}</span>
             </div>
           </div>
           <div className="userShowBottom">
-            <span className="userShowTitle">Account Details</span>
+            <span className="userShowTitle">Cuenta</span>
             <div className="userShowInfo">
               <PermIdentity className="userShowIcon" />
-              <span className="userShowInfoTitle">annabeck99</span>
+              <span className="userShowInfoTitle">{user.username}</span>
             </div>
             <div className="userShowInfo">
               <CalendarToday className="userShowIcon" />
-              <span className="userShowInfoTitle">10.12.1999</span>
+              <span className="userShowInfoTitle">{format(user.createdAt)}</span>
             </div>
-            <span className="userShowTitle">Contact Details</span>
+            <div className="userShowInfo">
+              <AccessibilityRounded className="userShowIcon" />
+              <span className="userShowInfoTitle">{((user.isAdmin) ? "Es administrador" : "No es administrador")}</span>
+            </div>
+            <span className="userShowTitle">Contacto</span>
             <div className="userShowInfo">
               <PhoneAndroid className="userShowIcon" />
-              <span className="userShowInfoTitle">+1 123 456 67</span>
+              <span className="userShowInfoTitle">{user.phone}</span>
             </div>
             <div className="userShowInfo">
               <MailOutline className="userShowIcon" />
-              <span className="userShowInfoTitle">annabeck99@gmail.com</span>
-            </div>
-            <div className="userShowInfo">
-              <LocationSearching className="userShowIcon" />
-              <span className="userShowInfoTitle">New York | USA</span>
+              <span className="userShowInfoTitle">{user.mail}</span>
             </div>
           </div>
         </div>
         <div className="userUpdate">
-          <span className="userUpdateTitle">Edit</span>
+          <span className="userUpdateTitle">Editar</span>
           <form className="userUpdateForm">
             <div className="userUpdateLeft">
               <div className="userUpdateItem">
-                <label>Username</label>
+                <label>Usuario</label>
                 <input
+                  onChange={e => {
+                    setUsername(e.target.value)
+                  }}
                   type="text"
-                  placeholder="annabeck99"
                   className="userUpdateInput"
                 />
               </div>
               <div className="userUpdateItem">
-                <label>Full Name</label>
+                <label>Nombre Completo</label>
                 <input
+                  onChange={e => {
+                    setName(e.target.value)
+                  }}
                   type="text"
-                  placeholder="Anna Becker"
                   className="userUpdateInput"
                 />
               </div>
               <div className="userUpdateItem">
                 <label>Email</label>
                 <input
-                  type="text"
-                  placeholder="annabeck99@gmail.com"
-                  className="userUpdateInput"
-                />
-              </div>
-              <div className="userUpdateItem">
-                <label>Phone</label>
-                <input
-                  type="text"
-                  placeholder="+1 123 456 67"
-                  className="userUpdateInput"
-                />
-              </div>
-              <div className="userUpdateItem">
-                <label>Address</label>
-                <input
-                  type="text"
-                  placeholder="New York | USA"
+                  onChange={e => {
+                    setMail(e.target.value)
+                  }}
+                  type="mail"
                   className="userUpdateInput"
                 />
               </div>
             </div>
             <div className="userUpdateRight">
-              <div className="userUpdateUpload">
-                <img
-                  className="userUpdateImg"
-                  src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-                  alt=""
+              <div className="userUpdateItem">
+                <label>Teléfono</label>
+                <input
+                  onChange={e => {
+                    setPhone(e.target.value)
+                  }}
+                  type="text"
+                  className="userUpdateInput"
                 />
-                <label htmlFor="file">
-                  <Publish className="userUpdateIcon" />
-                </label>
-                <input type="file" id="file" style={{ display: "none" }} />
               </div>
-              <button className="userUpdateButton">Update</button>
+              <div className="userUpdateItem">
+                <label>Administrador</label>
+                <input
+                  onChange={e => {
+                    setIsAdmi(e.target.checked)
+                  }}
+                  type="checkbox"
+                  className="userUpdateInput"
+                />
+              </div>
+
             </div>
           </form>
+          <button className="userUpdateButton" onClick={handleUpdate}>Actualizar</button>
         </div>
       </div>
     </div>

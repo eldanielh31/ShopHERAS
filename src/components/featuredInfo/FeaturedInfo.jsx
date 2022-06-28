@@ -4,16 +4,26 @@ import { useEffect, useState } from "react";
 import { userRequest } from "../../requestMethods";
 
 export default function FeaturedInfo() {
-  const [income, setIncome] = useState([]);
-  const [perc, setPerc] = useState(0);
-  
-  useEffect(()=>{
-    const getIncome = async()=>{
+  const [income, setIncome] = useState({});
+  const [percIncome, setPercIncome] = useState(0);
+  const [incomeComparate, setIncomeComparate] = useState(0);
+  const [salesComparate, setSalesComparate] = useState(0);
+  const [percSales, setPercSales] = useState(0);
+
+  useEffect(() => {
+    const getIncome = async () => {
       try {
-        const res = await userRequest.get("order/income");
-        setIncome(res.data);
-        setPerc((res.data[1].total * 100) / res.data[0].total - 100);
-      } catch{}
+        const res = await userRequest.get("order/stats/income");
+        if (Object.keys(((res.data[0])).length !== 0)) {
+          setIncome((Object.keys((res.data[1])).length !== 0) ? res.data[1] : res.data[0]);
+
+          setIncomeComparate((Object.keys((res.data[1])).length !== 0) ? res.data[1].total - res.data[0].total : res.data[0].total);
+          setPercIncome((Object.keys((res.data[1])).length !== 0) ? (res.data[1].total * 100) / res.data[0].total - 100 : 100);
+
+          setSalesComparate((Object.keys((res.data[1])).length !== 0) ? res.data[1].quantity - res.data[0].quantity : res.data[0].quantity);
+          setPercSales((Object.keys((res.data[1])).length !== 0) ? (res.data[1].quantity * 100) / res.data[0].quantity - 100 : 100);
+        }
+      } catch { }
     }
     getIncome();
   }, []);
@@ -23,13 +33,13 @@ export default function FeaturedInfo() {
       <div className="featuredItem">
         <span className="featuredTitle">Ingresos</span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">₡{income[1]?.total}</span>
+          <span className="featuredMoney">₡{incomeComparate}</span>
           <span className="featuredMoneyRate">
-             %{Math.floor(perc)}{" "}
-             {perc < 0 ? (
-                <ArrowDownward  className="featuredIcon negative"/>
-                ): <ArrowUpward className="featuredIcon" /> 
-              } 
+            %{Math.floor(percIncome)}{" "}
+            {percIncome < 0 ? (
+              <ArrowDownward className="featuredIcon negative" />
+            ) : <ArrowUpward className="featuredIcon" />
+            }
           </span>
         </div>
         <span className="featuredSub">Comparado al mes pasado</span>
@@ -37,22 +47,23 @@ export default function FeaturedInfo() {
       <div className="featuredItem">
         <span className="featuredTitle">Ventas</span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">4,415</span>
+          <span className="featuredMoney">{salesComparate}</span>
           <span className="featuredMoneyRate">
-            -1.4 <ArrowDownward className="featuredIcon negative"/>
+            %{Math.floor(percSales)}{" "}
+            {percSales < 0 ? (
+              <ArrowDownward className="featuredIcon negative" />
+            ) : <ArrowUpward className="featuredIcon" />
+            }
           </span>
         </div>
         <span className="featuredSub">Comparado al mes pasado</span>
       </div>
       <div className="featuredItem">
-        <span className="featuredTitle">Costo</span>
+        <span className="featuredTitle">Ingresos</span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">2,225</span>
-          <span className="featuredMoneyRate">
-            +2.4 <ArrowUpward className="featuredIcon"/>
-          </span>
+          <span className="featuredMoney">₡{income.total}</span>
         </div>
-        <span className="featuredSub">Comparado al mes pasado</span>
+        <span className="featuredSub">Total del mes</span>
       </div>
     </div>
   );

@@ -21,6 +21,32 @@ export const login = async(dispatch, user)=>{
 };
 
 //USUARIOS
+
+export const updateUserbyId = async(userId, user)=>{
+    try {
+        await userRequest.put("users/" + userId , user);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const createUser = async (user) => {
+    try {
+        await userRequest.post("users/register" , user);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const getUserById = async(userId)=>{
+    try {
+        const res = await userRequest.get("/users/" + userId);
+        return res.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 export const getUsers = async(dispatch)=>{
     dispatch(getUserStart());
     try{

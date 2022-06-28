@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { userRequest } from "../../requestMethods";
 import "./widgetLg.css";
@@ -25,16 +26,19 @@ export default function WidgetLg() {
     <div className="widgetLg">
       <h3 className="widgetLgTitle">Ultimas transacciones</h3>
       <table className="widgetLgTable">
+        <thead>
         <tr className="widgetLgTr">
           <th className="widgetLgTh">Cliente</th>
           <th className="widgetLgTh">Fecha</th>
           <th className="widgetLgTh">Monto</th>
           <th className="widgetLgTh">Estado</th>
         </tr>
+        </thead>
+        <tbody>
         {orders.map(order => (
-          <tr className="widgetLgTr" key = {order._id}>
+          <tr className="widgetLgTr" key={order._id}>
           <td className="widgetLgUser">
-            <span className="widgetLgName">{order.userId}</span>
+              <span className="widgetLgName">{order.userId}</span>
           </td>
           <td className="widgetLgDate">{format(order.createdAt)}</td>
           <td className="widgetLgAmount">{order.amount}</td>
@@ -43,6 +47,7 @@ export default function WidgetLg() {
           </td>
         </tr>
         ))}
+        </tbody>
       </table>
     </div>
   );

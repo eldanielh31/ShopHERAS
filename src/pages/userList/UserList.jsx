@@ -20,7 +20,7 @@ export default function UserList() {
   };
   
   const columns = [
-    { field: "_id", headerName: "ID", width: 150 },
+    { field: "_id", headerName: "ID", width: 250 },
     {
       field: "username",
       headerName: "Usuario",
@@ -34,13 +34,20 @@ export default function UserList() {
       //   );
       // },
     },
-    { field: "email", 
+    {
+      field: "name",
+      headerName: "Nombre",
+      width: 300
+    },
+    { field: "mail", 
       headerName: "Email", 
-      width: 200 },
+      width: 250 
+    },
+    
     {
       field: "phone",
       headerName: "Celular",
-      width: 120,
+      width: 150,
     },
     {
       field: "isAdmin",
@@ -70,6 +77,12 @@ export default function UserList() {
 
   return (
     <div className="userList">
+      <div className="userTitleContainer">
+        <h1 className="userTitle">Usuarios</h1>
+        <Link to="/newUser">
+          <button className="userAddButton">Crear</button>
+        </Link>
+      </div>
       <DataGrid
         rows={users}
         disableSelectionOnClick
